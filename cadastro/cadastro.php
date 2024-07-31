@@ -62,21 +62,59 @@ else{
 
                     $cpf_filter = str_replace(['.','-'],'',$this->cpf);
 
-                    $cpf_int = intval($cpf_filter);
+                    $cpf_split = str_split($cpf_filter);
 
-                    $cpf_split = str_split($cpf_int);
-
-                    foreach($cpf_split as $position => $cpf_split){
-                        /*Fazer os calculos, IA está ajudando*/
+                    $sum = 0;
+                    $cpf_calc1 = 10;
+                    
+                    // Calcula o primeiro dígito verificador
+                    for ($count1 = 0; $count1 < 9; $count1++) {
+                        $cpf_int = intval($cpf_split[$count1]); // Converte string para número int
+                        $sum += $cpf_int * $cpf_calc1;
+                        $cpf_calc1 -= 1;
                     }
+                    
+                    $total1 = $sum % 11;
+                    
+                    if ($total1 < 2) {
+                        $cpf_digit1 = 0;
+                    } else {
+                        $cpf_digit1 = 11 - $total1;
+                    }
+                    
+                    // Reseta $sum para o cálculo do segundo dígito verificador
+                    $sum = 0;
+                    $cpf_calc2 = 11;
+                    
+                    // Calcula o segundo dígito verificador, incluindo o primeiro dígito verificador
+                    for ($count2 = 0; $count2 < 10; $count2++) {
+                        $cpf_int = intval($cpf_split[$count2]);
+                        $sum += $cpf_int * $cpf_calc2;
+                        $cpf_calc2 -= 1;
+                    }
+                    
+                    $total2 = $sum % 11;
+                    
+                    if ($total2 < 2) {
+                        $cpf_digit2 = 0;
+                    } else {
+                        $cpf_digit2 = 11 - $total2;
+                    }
+                    
+                    if ($cpf_split[9] == $cpf_digit1 && $cpf_split[10] == $cpf_digit2) {
 
-                    mysqli_stmt_bind_param($security,'ss', $this->name, $cpf_int);
+                        mysqli_stmt_bind_param($security,'ss', $this->name, $cpf_filter);
+                        
+                        echo "CPF válido! Digito 1: " . $cpf_digit1 . " Digito 2: " . $cpf_digit2;
+                    } else {
+                        echo "CPF inválido! Digito 1: " . $cpf_digit1 . " Digito-entrada: " . $cpf_split[9] . " Digito 2: " . $cpf_digit2 . " Digito-entrada: " . $cpf_split[10];
+                    }
+                    
+                    /*
+                   mysqli_stmt_execute($security);
 
-                    mysqli_stmt_execute($security);
-
-                    echo "Cadastro feito";
-
-                    mysqli_stmt_close($security);
+                   mysqli_stmt_close($security);*/
+                    
                 }
 
             }
