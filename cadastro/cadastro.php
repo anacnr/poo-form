@@ -11,13 +11,24 @@ session_start();
 </head>
 <body>
     <div id="div-form">
+        <!--Nome-->
         <form action="" method="post">
          <span id="span-name">
              <label for="input-name" id="label-name">Nome:</label>
-             <input type="text" id="input-name" name="user-name" minlength="5" maxlength="40" placeholder="Nome">
+             <input type="text" id="input-name" name="user-name" minlength="5" maxlength="40" pattern="[A-Za-zÁ-ÿ ]+" placeholder="Nome">
+         </span>
+         <!--CPF-->
+         <span id="span-cpf">
+             <label for="input-cpf" id="label-cpf">CPF:</label>
+             <input type="text" id="input-cpf" name="user-cpf" minlength="14" maxlength="14" placeholder="CPF">
+         </span>
+         <!--Celular-->
+         <span id="span-phone">
+             <label for="input-phone" id="label-phone">Celular:</label>
+             <input type="tel" id="input-phone" name="user-phone" minlength="14" maxlength="14" placeholder="Celular">
          </span>
          <span id="span-cpf">
-             <label for="input-name" id="label-cpf">Nome:</label>
+             <label for="input-name" id="label-cpf">Telefone:</label>
              <input type="text" id="input-cpf" name="user-cpf" minlength="14" maxlength="14" placeholder="CPF">
          </span>
 
