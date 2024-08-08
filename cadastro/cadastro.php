@@ -12,7 +12,7 @@ session_start();
 <body>
     <div id="div-form">
         <!--Nome-->
-        <form action="" method="post">
+        <form method="post">
          <span id="span-name">
              <label for="input-name" id="label-name">Nome:</label>
              <input type="text" id="input-name" name="user-name" minlength="5" maxlength="40" pattern="[A-Za-zÁ-ÿ ]+" placeholder="Nome">
@@ -22,19 +22,15 @@ session_start();
              <label for="input-cpf" id="label-cpf">CPF:</label>
              <input type="text" id="input-cpf" name="user-cpf" minlength="14" maxlength="14" placeholder="CPF">
          </span>
-         <!--Celular-->
+         <!--Celular
          <span id="span-phone">
              <label for="input-phone" id="label-phone">Celular:</label>
              <input type="tel" id="input-phone" name="user-phone" minlength="14" maxlength="14" placeholder="Celular">
-         </span>
-         <span id="span-cpf">
-             <label for="input-name" id="label-cpf">Telefone:</label>
-             <input type="text" id="input-cpf" name="user-cpf" minlength="14" maxlength="14" placeholder="CPF">
-         </span>
-
+         </span-->
          <button type="submit">Enviar</button>
         </form>
     </div>
+    <script src="./js/cadastro.js"></script>
 </body>
 </html>
 
@@ -122,13 +118,14 @@ else{
 
                     #Verificação de CPF válido ou inválido
                     if ($cpf_split[9] == $cpf_digit1 && $cpf_split[10] == $cpf_digit2) {
-                        
                         echo "CPF válido!";
                         
                         #Atribui a inicialização do P.S., atribui o tipo dos dados e as variáveis que armazenam os dados
                         mysqli_stmt_bind_param($security,'ss', $this->name, $cpf_filter);
                         #Realiza os passos do Prepared Staments.
                         mysqli_stmt_execute($security);
+                        #Lógica para enviar resposta ao back-end
+                        
                     } 
                     else {
                         echo "CPF inválido!";
